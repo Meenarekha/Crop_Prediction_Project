@@ -470,7 +470,11 @@ if __name__ == "__main__":
     wheat = Commodity(commodity_dict["wheat"])
     commodity_list.append(wheat)
 
-    app.run()
+    if __name__ == "__main__":
+        import os
+        port = int(os.environ.get("PORT", 5000))  # 5000 for local, Render gives its own port
+        app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
