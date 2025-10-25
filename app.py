@@ -470,11 +470,19 @@ if __name__ == "__main__":
     wheat = Commodity(commodity_dict["wheat"])
     commodity_list.append(wheat)
 
-    if __name__ == "__main__":
-        import os
-        port = int(os.environ.get("PORT", 5000))  # 5000 for local, Render gives its own port
-        app.run(host="0.0.0.0", port=port, debug=True)
+   # ✅ Load all commodities at import (for Render + local)
+for name, csv_path in commodity_dict.items():
+    try:
+        commodity = Commodity(csv_path)
+        commodity_list.append(commodity)
+    except Exception as e:
+        print(f"Failed to load {name}: {e}")
 
+# ✅ Local run (for VS Code testing)
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
 
 
 
